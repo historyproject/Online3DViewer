@@ -22,6 +22,7 @@ export class ThreeModelLoaderUI
         let progressDialog = null;
         this.modelLoader.LoadModel (inputFiles, settings, {
             onLoadStart : () => {
+                alert('123');
                 this.CloseDialogIfOpen ();
                 callbacks.onStart ();
                 progressDialog = new ProgressDialog ();
@@ -75,7 +76,7 @@ export class ThreeModelLoaderUI
         if (importError.code === ImportErrorCode.NoImportableFile) {
             return ShowMessageDialog (
                 'Something went wrong',
-                'No importable file found.',
+                'No importable file found3.',
                 null
             );
         } else if (importError.code === ImportErrorCode.FailedToLoadFile) {
