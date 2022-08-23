@@ -41,7 +41,9 @@ export class ThreeModelLoader
                 callbacks.onFileLoadProgress (current, total);
             },
             onImportStart : () => {
+                alert('1');
                 callbacks.onImportStart ();
+                alert('2');
             },
             onSelectMainFile : (fileNames, selectFile) => {
                 if (!callbacks.onSelectMainFile) {

@@ -130,7 +130,9 @@ export class Importer
         newFileList.FillFromInputFiles (inputFiles);
 
         let reset = false;
+        alert('a');
         if (this.HasImportableFile (newFileList)) {
+            alert('b');
             reset = true;
         } else {
             let foundMissingFile = false;
