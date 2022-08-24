@@ -43,7 +43,11 @@ export function GetFileExtension (filePath)
 		// and appending the file extension based on the param
 		// but only do this if param and return that here
 		// create a function
-		alert('tadaaaa');
+		alert('no first point in file path');
+		let firstParamIndex = fileName.indexOf ('?');
+		if (firstParamIndex !== -1) {
+			fileName = fileName.substring (firstParamIndex, 3);
+		}
 		//
 		// function could take filepath as object
 		// or optional second parameter that just has the extension
