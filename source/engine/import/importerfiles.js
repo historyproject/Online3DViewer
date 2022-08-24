@@ -1,7 +1,6 @@
 import { RunTasks } from '../core/taskrunner.js';
 import { FileSource, GetFileExtension, GetFileName, ReadFile, RequestUrl } from '../io/fileutils.js';
 
-
 function FileExtensionViaUrlParam (inputFile) {
     // check that data property is a url
     const dataIsUrl = inputFile.source === FileSource.Url;
@@ -46,7 +45,7 @@ export function InputFilesFromFileObjects (fileObjects)
 
 export class ImporterFile
 {
-    constructor (name, source, data, extension='')
+    constructor (name, source, data)
     {
         this.name = GetFileName (name);
         this.source = source;

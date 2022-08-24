@@ -66,7 +66,6 @@ export class Embed
             if (defaultColor !== null) {
                 settings.defaultColor = defaultColor;
             }
-            // if provived adding a fallback extension property to inputFile item
             let inputFiles = InputFilesFromUrls (urls);
             this.modelLoaderUI.LoadModel (inputFiles, settings, {
                 onStart : () =>

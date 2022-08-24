@@ -71,7 +71,6 @@ export class ImporterThreeBase extends ImporterBase
             }
             const name = GetFileName (url);
             const extension = GetFileExtension (url);
-            // could run the function here if extension is none but path specified
             if (extension.length > 0) {
                 const buffer = this.callbacks.getFileBuffer (url);
                 if (buffer !== null) {
