@@ -206,7 +206,6 @@ export class ParameterListBuilder
 
     AddModelUrls (urls)
     {
-        alert('ala');
         this.AddUrlPart ('model', ParameterConverter.ModelUrlsToString (urls));
         return this;
     }
@@ -312,7 +311,6 @@ export class ParameterListParser
         if (this.paramList === null || this.paramList.length === 0) {
             return null;
         }
-        // alert('maybe');
         let keywordToken = keyword + '=';
         let urlParts = this.paramList.split (this.separator);
         for (let i = 0; i < urlParts.length; i++) {
@@ -327,7 +325,6 @@ export class ParameterListParser
 
 export function CreateUrlBuilder ()
 {
-    alert('tnt');
     return new ParameterListBuilder ('$');
 }
 

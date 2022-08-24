@@ -1,61 +1,28 @@
 import { RunTasks } from '../core/taskrunner.js';
 import { FileSource, GetFileExtension, GetFileName, ReadFile, RequestUrl } from '../io/fileutils.js';
 
+// could also subclass this
 export class InputFile
 {
-    constructor (name, source, data, extension='')
+    constructor (name, source, data)
     {
-        alert('why is this?');
         this.name = name;
         this.source = source;
         this.data = data;
-        this.extension = extension;
+        // if exists, add extension param to InputFile instance
+        let extensionParamIndex = data.indexOf ('?ext=');
+        if (extensionParamIndex !== -1){
+            this.extension = data.substring(extensionParamIndex + '?ext='.length);
+        }
     }
 }
 
-// subclass inputfile
-// class SuperInputFile extends InputFile {
-//     // As above
-//     constructor(extension='') {
-//         alert('really in here');
-//         super();
-//         this.extension = extension;
-//     }
-// }
-
-
 export function InputFilesFromUrls (urls)
 {
-    // might have to do it here by adding it as an argument to InputFile constructor
     let inputFiles = [];
     for (let url of urls) {
-        alert('loop urls');
-        alert(url);
-        // get extension param ? before its clipped in GetFileName
-        let firstParamIndex = url.indexOf ('?ext=');
-        alert('this is how we do it');
-        alert(url.substring(firstParamIndex + '?ext='.length));
-        let exten = '';
-        if (url.substring(firstParamIndex + '?ext='.length)){
-            alert('ya??12');
-            exten = url.substring(firstParamIndex + '?ext='.length);
-            alert(url.substring(firstParamIndex + '?ext='.length));
-            alert(exten);
-        }
-
-        alert('missed it');
-        // alert(firstParamIndex);
-        // check if // allows multiple files
         let fileName = GetFileName (url);
-
-        if(exten !== '') {
-            alert('yep');
-            inputFiles.push (new InputFile (fileName, FileSource.Url, url, exten));
-        } else {
-            alert('not fair');
-            inputFiles.push (new InputFile (fileName, FileSource.Url, url));
-        }
-
+        inputFiles.push (new InputFile (fileName, FileSource.Url, url));
     }
     return inputFiles;
 }
@@ -72,12 +39,10 @@ export function InputFilesFromFileObjects (fileObjects)
 
 export class ImporterFile
 {
-    constructor (name, source, data, extension)
+    constructor (name, source, data, extension='')
     {
         this.name = GetFileName (name);
-        if (extension) {
-            alert('at it');
-            alert(extension);
+        if (extension !== '') {
             this.extension = extension;
         } else {
             this.extension = GetFileExtension (name);
@@ -105,12 +70,11 @@ export class ImporterFileList
     {
         this.files = [];
         for (let inputFile of inputFiles) {
-            alert('here too');
-            alert(inputFile.name);
-            alert(inputFile.source);
-            alert('wnoa');
-            alert(inputFile.extension);
-            let file = new ImporterFile (inputFile.name, inputFile.source, inputFile.data, inputFile.extension);
+            let file = new ImporterFile (inputFile.name, inputFile.source, inputFile.data);
+            // if provided in InputFile, pass extension to ImporterFile
+            if (inputFile.extension) {
+                file.extension = inputFile.extension
+            }
             this.files.push (file);
         }
     }

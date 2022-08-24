@@ -55,10 +55,7 @@ export class EmbeddedViewer
     LoadModelFromUrlList (modelUrls)
     {
         TransformFileHostUrls (modelUrls);
-        alert('get input files');
         let inputFiles = InputFilesFromUrls (modelUrls);
-        alert(inputFiles[0])
-        // actually add to input files here
         this.LoadModelFromInputFiles (inputFiles);
     }
 
@@ -211,7 +208,6 @@ export function Init3DViewerElements (onReady)
         }
 
         let modelUrls = null;
-        alert('early');
         let modelParams = element.getAttribute ('model');
         if (modelParams) {
             modelUrls = ParameterConverter.StringToModelUrls (modelParams);

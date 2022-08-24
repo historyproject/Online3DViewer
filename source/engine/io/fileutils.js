@@ -13,8 +13,6 @@ export const FileFormat =
 
 export function GetFileName (filePath)
 {
-	alert('wr');
-	alert(filePath);
 	let firstSeparator = filePath.lastIndexOf ('/');
 	if (firstSeparator === -1) {
 		firstSeparator = filePath.lastIndexOf ('\\');
@@ -24,10 +22,6 @@ export function GetFileName (filePath)
 		fileName = filePath.substring (firstSeparator + 1);
 	}
 	let firstParamIndex = fileName.indexOf ('?');
-	alert('hma1');
-	alert(fileName);
-	alert(firstParamIndex);
-	// already accounting for param and picking whats before as the filename...
 	if (firstParamIndex !== -1) {
 		fileName = fileName.substring (0, firstParamIndex);
 	}
@@ -36,37 +30,12 @@ export function GetFileName (filePath)
 
 export function GetFileExtension (filePath)
 {
-	alert('chma');
 	let fileName = GetFileName (filePath);
 	let firstPoint = fileName.lastIndexOf ('.');
-	alert('tadaaaa1');
 	if (firstPoint === -1) {
-		// in filePath you can add indexOf ('?') to add a param
-		// and grab it here (so no need for extension)
-		//
-		// nifty would be to add extension temporarily based on param
-		// making firstPoint the index of the last character
-		// and appending the file extension based on the param
-		// but only do this if param and return that here
-		// create a function
-		alert('no first point in file path');
-		alert(fileName);
-		let firstParamIndex = fileName.indexOf ('?');
-		if (firstParamIndex !== -1) {
-			alert('firstParamIndex is' + firstParamIndex.toString())
-			const fileParam = fileName.substring (firstParamIndex);
-			alert(fileParam);
-
-		}
-		//
-		// function could take filepath as object
-		// or optional second parameter that just has the extension
-		// alert('no extensions');
 		return '';
 	}
 	let extension = fileName.substring (firstPoint + 1);
-	// could do it here unless previous line throws and error
-	// (for example) conditional check and then run returning extension
 	return extension.toLowerCase ();
 }
 
