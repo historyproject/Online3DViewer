@@ -50,6 +50,7 @@ export class ImporterFile
     constructor (name, source, data)
     {
         this.name = GetFileName (name);
+        this.extension = GetFileExtension (name);
         this.source = source;
         this.data = data;
         this.content = null;
