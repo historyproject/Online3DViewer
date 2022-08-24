@@ -1,7 +1,19 @@
 import { RunTasks } from '../core/taskrunner.js';
 import { FileSource, GetFileExtension, GetFileName, ReadFile, RequestUrl } from '../io/fileutils.js';
 
-// could also subclass this
+
+function FileExtensionViaUrlParam (inputFile) {
+    // check that data property is a url
+    const dataIsUrl = inputFile.source === FileSource.Url;
+    // check if extension param exists
+    const extensionParamIndex = inputFile.data.indexOf ('?ext=');
+    if (dataIsUrl && extensionParamIndex !== -1){
+        // provided extension to InputFile instance
+        return inputFile.data.substring(extensionParamIndex + '?ext='.length);
+    }
+    return false;
+}
+
 export class InputFile
 {
     constructor (name, source, data)
@@ -9,15 +21,6 @@ export class InputFile
         this.name = name;
         this.source = source;
         this.data = data;
-
-        // check that data property is a url
-        const dataIsUrl = source === FileSource.Url;
-        // check if extension provided via param
-        const extensionParamIndex = data.indexOf ('?ext=');
-        if (dataIsUrl && extensionParamIndex !== -1){
-            // add provided extension to InputFile instance
-            this.extension = data.substring(extensionParamIndex + '?ext='.length);
-        }
     }
 }
 
@@ -46,15 +49,14 @@ export class ImporterFile
     constructor (name, source, data, extension='')
     {
         this.name = GetFileName (name);
-        if (extension !== '') {
-            this.extension = extension;
-        } else {
-            this.extension = GetFileExtension (name);
-        }
-
         this.source = source;
         this.data = data;
         this.content = null;
+        if (FileExtensionViaUrlParam(this)) {
+            this.extension = FileExtensionViaUrlParam(this)
+        } else {
+            this.extension = GetFileExtension (name);
+        }
     }
 
     SetContent (content)
@@ -75,10 +77,6 @@ export class ImporterFileList
         this.files = [];
         for (let inputFile of inputFiles) {
             let file = new ImporterFile (inputFile.name, inputFile.source, inputFile.data);
-            // if provided in InputFile, pass extension to ImporterFile
-            if (inputFile.extension) {
-                file.extension = inputFile.extension
-            }
             this.files.push (file);
         }
     }
