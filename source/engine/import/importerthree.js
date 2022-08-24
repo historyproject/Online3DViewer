@@ -70,6 +70,7 @@ export class ImporterThreeBase extends ImporterBase
                 return url;
             }
             const name = GetFileName (url);
+            alert('seee');
             const extension = GetFileExtension (url);
             // could run the function here if extension is none but path specified
             if (extension.length > 0) {

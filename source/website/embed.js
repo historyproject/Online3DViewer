@@ -67,6 +67,10 @@ export class Embed
                 settings.defaultColor = defaultColor;
             }
             let inputFiles = InputFilesFromUrls (urls);
+            alert(';weasda');
+            alert('this is it');
+            alert(inputFiles[0].extension)
+            alert('was it');
             // maybe grab extension and add it to input files ^ so load model will have it in input files
             this.modelLoaderUI.LoadModel (inputFiles, settings, {
                 onStart : () =>

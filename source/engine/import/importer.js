@@ -109,6 +109,8 @@ export class Importer
 
     ImportFiles (inputFiles, settings, callbacks)
     {
+        alert('intermission?');
+        alert(inputFiles);
         callbacks.onLoadStart ();
         this.LoadFiles (inputFiles, {
             onReady : () => {
@@ -127,6 +129,7 @@ export class Importer
     LoadFiles (inputFiles, callbacks)
     {
         let newFileList = new ImporterFileList ();
+        alert('cib');
         newFileList.FillFromInputFiles (inputFiles);
 
         let reset = false;
@@ -162,6 +165,7 @@ export class Importer
     ImportLoadedFiles (settings, callbacks)
     {
         let importableFiles = this.GetImportableFiles (this.fileList);
+        alert('checking if importable');
         if (importableFiles.length === 0) {
             callbacks.onImportError (new ImportError (ImportErrorCode.NoImportableFile));
             return;
@@ -279,6 +283,8 @@ export class Importer
 
     HasImportableFile (fileList)
     {
+        alert('smack');
+        alert(fileList);
         let importableFiles = this.GetImportableFiles (fileList);
         return importableFiles.length > 0;
     }
@@ -288,6 +294,8 @@ export class Importer
         function FindImporter (file, importers)
         {
             for (let importerIndex = 0; importerIndex < importers.length; importerIndex++) {
+                // alert('trickery');
+                alert(file.extension);
                 let importer = importers[importerIndex];
                 if (importer.CanImportExtension (file.extension)) {
                     return importer;
