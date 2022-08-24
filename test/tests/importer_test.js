@@ -1,6 +1,8 @@
 import * as assert from 'assert';
 import * as OV from '../../source/engine/main.js';
 
+import { InputFilesFromUrls, ImporterFileList  } from '../../source/engine/import/importerfiles.js';
+
 export default function suite ()
 {
 
@@ -77,6 +79,18 @@ describe ('Importer Test', function () {
                 done ();
             }
         });
+    });
+
+    it ('Specify import extension via url param', function (done) {
+        const urls = [
+            'http://test.com/fileWithoutExtension?ext=stl',
+        ];
+        const inputFiles = InputFilesFromUrls (urls);
+        const newFileList = new ImporterFileList ();
+        newFileList.FillFromInputFiles(inputFiles);
+        const firstFile = newFileList.files[0];
+        assert.strictEqual (firstFile.extension, 'stl');
+        done ();
     });
 
     it ('Wrong file', function (done) {

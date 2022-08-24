@@ -1,6 +1,20 @@
 import { RunTasks } from '../core/taskrunner.js';
 import { FileSource, GetFileExtension, GetFileName, ReadFile, RequestUrl } from '../io/fileutils.js';
 
+function FileExtensionViaUrlParam (importerFile) {
+    // check that data property is a url
+    const dataIsUrl = importerFile.source === FileSource.Url;
+    if (dataIsUrl){
+        // check if extension param exists
+        const extensionParamIndex = importerFile.data.indexOf ('?ext=');
+        // if extension provided to ImporterFile instance
+        if (extensionParamIndex !== -1) {
+            return importerFile.data.substring(extensionParamIndex + '?ext='.length);
+        }
+    }
+    return false;
+}
+
 export class InputFile
 {
     constructor (name, source, data)
@@ -40,6 +54,11 @@ export class ImporterFile
         this.source = source;
         this.data = data;
         this.content = null;
+        if (FileExtensionViaUrlParam(this)) {
+            this.extension = FileExtensionViaUrlParam(this);
+        } else {
+            this.extension = GetFileExtension (name);
+        }
     }
 
     SetContent (content)
