@@ -9,9 +9,13 @@ export class InputFile
         this.name = name;
         this.source = source;
         this.data = data;
-        // if exists, add extension param to InputFile instance
-        let extensionParamIndex = data.indexOf ('?ext=');
-        if (extensionParamIndex !== -1){
+
+        // check that data property is a url
+        const dataIsUrl = source === FileSource.Url;
+        // check if extension provided via param
+        const extensionParamIndex = data.indexOf ('?ext=');
+        if (dataIsUrl && extensionParamIndex !== -1){
+            // add provided extension to InputFile instance
             this.extension = data.substring(extensionParamIndex + '?ext='.length);
         }
     }
